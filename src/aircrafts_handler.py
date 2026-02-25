@@ -6,19 +6,37 @@ class Aircraft:
     Включает приватные методы валидации данных при инициализации.
     """
 
-    __slots__ = ('_icao24', '_callsign', '_origin_country', '_altitude',
-                 '_longitude', '_latitude', '_on_ground', '_velocity', '_heading')
+    __slots__ = (
+        "_icao24",
+        "_callsign",
+        "_origin_country",
+        "_longitude",
+        "_latitude",
+        "_altitude",
+        "_on_ground",
+        "_velocity",
+        "_heading",
+    )
 
-    def __init__(self, icao24: str, callsign: str = None, origin_country: str = '',
-                 altitude: float = 0.0, longitude: float = 0.0, latitude: float = 0.0,
-                 on_ground: bool = False, velocity: float = None, heading: float = None):
+    def __init__(
+        self,
+        icao24: str,
+        callsign: str = None,
+        origin_country: str = "",
+        longitude: float = 0.0,
+        latitude: float = 0.0,
+        altitude: float = 0.0,
+        on_ground: bool = False,
+        velocity: float = None,
+        heading: float = None,
+    ):
         # Приватные методы валидации вызываются при установке значений
         self._icao24 = self.__validate_icao24(icao24)
         self._callsign = self.__validate_callsign(callsign)
         self._origin_country = self.__validate_origin_country(origin_country)
-        self._altitude = self.__validate_altitude(altitude)
         self._longitude = self.__validate_longitude(longitude)
         self._latitude = self.__validate_latitude(latitude)
+        self._altitude = self.__validate_altitude(altitude)
         self._on_ground = self.__validate_on_ground(on_ground)
         self._velocity = self.__validate_velocity(velocity)
         self._heading = self.__validate_heading(heading)
@@ -154,30 +172,30 @@ class Aircraft:
     def to_dict(self) -> dict:
         """Преобразует объект в словарь для JSON/CSV."""
         return {
-            'icao24': self._icao24,
-            'callsign': self._callsign,
-            'origin_country': self._origin_country,
-            'longitude': self._longitude,
-            'latitude': self._latitude,
-            'altitude': self._altitude,
-            'on_ground': self._on_ground,
-            'velocity': self._velocity,
-            'heading': self._heading
+            "icao24": self._icao24,
+            "callsign": self._callsign,
+            "origin_country": self._origin_country,
+            "longitude": self._longitude,
+            "latitude": self._latitude,
+            "altitude": self._altitude,
+            "on_ground": self._on_ground,
+            "velocity": self._velocity,
+            "heading": self._heading,
         }
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'Aircraft':
+    def from_dict(cls, data: dict) -> "Aircraft":
         """Создаёт объект Aircraft из словаря."""
         return cls(
-            icao24=data['icao24'],
-            callsign=data.get('callsign'),
-            origin_country=data.get('origin_country', ''),
-            longitude=data.get('longitude', 0.0),
-            latitude=data.get('latitude', 0.0),
-            altitude=data.get('altitude', 0.0),
-            on_ground=data.get('on_ground', False),
-            velocity=data.get('velocity'),
-            heading=data.get('heading')
+            icao24=data["icao24"],
+            callsign=data.get("callsign"),
+            origin_country=data.get("origin_country", ""),
+            longitude=data.get("longitude", 0.0),
+            latitude=data.get("latitude", 0.0),
+            altitude=data.get("altitude", 0.0),
+            on_ground=data.get("on_ground", False),
+            velocity=data.get("velocity"),
+            heading=data.get("heading"),
         )
 
     def __repr__(self):
