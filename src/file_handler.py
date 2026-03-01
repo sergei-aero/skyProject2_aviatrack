@@ -226,29 +226,3 @@ class CsvFileHandler(BaseFileHandler):
             return True
         return False
 
-
-# Демонстрация работы
-if __name__ == "__main__":
-    # Создаём несколько самолётов
-    a1 = Aircraft("abc123", "AFR123", "France", 2.35, 48.86, 10000, False, 250, 45)
-    a2 = Aircraft("def456", "DLH456", "Germany", 2.36, 48.87, 11000, False, 260, 50)
-    a3 = Aircraft("abc123", "AFR123", "France", 2.35, 48.86, 10000, False, 250, 45)  # дубликат
-
-    # JSON-обработчик (файл будет в data/test_aircraft.json)
-    json_handler = JsonFileHandler("test_aircraft.json")
-    json_handler.write_data([a1, a2])
-    json_handler.append_data(a3)  # дубликат не добавится
-    print("JSON данные после добавления:", [a.icao24 for a in json_handler.read_data()])
-
-    # Удаление
-    json_handler.delete_data("def456")
-    print("JSON после удаления def456:", [a.icao24 for a in json_handler.read_data()])
-
-    # CSV-обработчик (файл будет в data/test_aircraft.csv)
-    csv_handler = CsvFileHandler("test_aircraft.csv")
-    csv_handler.write_data([a1, a2])
-    csv_handler.append_data(a3)
-    print("CSV данные после добавления:", [a.icao24 for a in csv_handler.read_data()])
-
-    csv_handler.delete_data("abc123")
-    print("CSV после удаления abc123:", [a.icao24 for a in csv_handler.read_data()])
